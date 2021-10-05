@@ -14,6 +14,16 @@ services:
     networks:
       - elastic-network
 
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.15.0
+    container_name: kibana
+    volumes:
+      - ./config/kibana.yml:/usr/share/kibana/config/kibana.yml
+    ports:
+      - "5601:5601"
+    networks:
+      - elastic-network
+
 volumes:
   elastic-data:
     name: 'elastic-data'
