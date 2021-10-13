@@ -5,3 +5,16 @@ GET _cluster/health
 GET _cat/nodes?v
 
 GET _cat/indices?v
+
+
+# Indices
+
+PUT products
+{
+  "settings" :{
+    "number_of_shards": 2,
+    "number_of_replicas": 2
+  }
+}
+
+DELETE products
