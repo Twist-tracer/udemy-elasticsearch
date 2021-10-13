@@ -1,0 +1,17 @@
+# Создание индекса
+
+~~~
+PUT products
+{
+    "settings" :{
+        "number_of_shards": 2,
+        "number_of_replicas": 2
+    }
+}
+~~~
+
+# Удаление индекса
+
+~~~
+DELETE products
+~~~
