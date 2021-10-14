@@ -6,6 +6,7 @@ services:
     container_name: elastic
     environment:
       - discovery.type=single-node
+      - xpack.security.enabled=false
     volumes:
       - elastic-data:/usr/share/elasticsearch/data
     ports:
