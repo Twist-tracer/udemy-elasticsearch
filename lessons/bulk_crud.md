@@ -32,3 +32,9 @@ POST _bulk
 POST _bulk
 {"update": {"_index": "products","_id": 200}}
 ~~~
+
+# Импорт из файла
+
+~~~bash
+curl -H "Content-type: application/x-ndjson" -X POST http://localhost:9200/recipies/_bulk --data-binary "@test-data.json"
+~~~
