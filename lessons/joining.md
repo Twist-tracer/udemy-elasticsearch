@@ -1,56 +1,3 @@
-# Связь через nested
-
-~~~
-PUT /department/_mapping
-{
-  "properties": {
-    "employees": {
-      "type": "nested"
-    }
-  }
-}
-
-PUT /department/_doc/1
-{
-  "name": "Development",
-  "employees": [
-    {
-      "name": "Eric Green",
-      "age": 39,
-      "gender": "M",
-      "position": "Big Data Specialist"
-    }
-  ]
-}
-
-GET /department/_search
-{
-  "query": {
-    "nested": {
-      "path": "employees",
-      "query": {
-        "bool": {
-          "must": [
-            {
-              "match": {
-                "employees.position": "intern"
-              }
-            },
-            {
-              "term": {
-                "employees.gender.keyword": {
-                  "value": "F"
-                }
-              }
-            }
-          ]
-        }
-      }
-    }
-  }
-}
-~~~
-
 # Связь через связующее поле
 
 ~~~
@@ -199,39 +146,6 @@ GET company/_search
 ~~~
 
 routing = id родителя. Он нужен для того чтобы elastic положит дочерние документы положить на нужную шарду (к родителю)
-
-# Terms lookup mechanism
-
-~~~
-PUT /users/_doc/1
-{
-  "name": "John Roberts",
-  "following" : [2, 3]
-}
-
-...
-
-PUT /stories/_doc/1
-{
-  "user": 1,
-  "content": "Wow look, a penguin!"
-}
-
-...
-
-GET /stories/_search
-{
-  "query": {
-    "terms": {
-      "user": {
-        "index": "users",
-        "id": "1",
-        "path": "following"
-      }
-    }
-  }
-}
-~~~
 
 **!!! Cвязи через join_field работают плохо (долго) на больших обьемах дочерних или родительских элементах и имеют лимиты.
 Если дочерних элементов может быть много лучше использовать nested связи !!!**
